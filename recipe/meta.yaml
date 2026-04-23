@@ -7,18 +7,18 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/digen-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/digen-{{ version }}.tar.gz
   sha256: ca8c7b27bd15ce4021d0ae8abce64e87be3e8717e7e40fe75ee5db0a1de79c2b
 
 build:
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv --no-deps
   noarch: python
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
     - deap >=1.3.0
     - importlib_resources
@@ -27,7 +27,7 @@ requirements:
     - numpy >=1.21
     - optuna >=1.3.0
     - pandas >=1.0.5
-    - python >=3.6
+    - python >={{ python_min }}
     - scikit-learn >=0.22.2
     - xgboost >=1.3.2
     - requests
@@ -39,6 +39,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/epistasislab/digen
